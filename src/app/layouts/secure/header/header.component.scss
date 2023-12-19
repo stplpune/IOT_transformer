@@ -1,0 +1,21 @@
+.nav-right {
+    display: flex;
+}
+.nav-right>div {
+    display: inline;
+    margin-inline: 3px;
+}
+.nav-right>div .mat-mdc-icon-button.mat-mdc-button-base{
+    display: inline-flex;
+    width: 32px;
+    height: 32px;
+}
+.nav-right>div .mat-mdc-icon-button.mat-mdc-button-base .material-icons{
+    font-size: 20px;
+}
+img.avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+}

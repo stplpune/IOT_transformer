@@ -1,0 +1,12 @@
+.wrapper {
+    padding-left: 70px;
+    position: relative;
+}
+
+.page-content {
+    min-height: calc(100vh - 115px);
+}
+app-side-bar{
+    position: absolute;
+    left: 0;
+}

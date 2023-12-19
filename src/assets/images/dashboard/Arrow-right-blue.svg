@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 27 27">
+  <g id="Arrow" transform="translate(-1797.5 -534)">
+    <circle id="Ellipse_432" data-name="Ellipse 432" cx="13.5" cy="13.5" r="13.5" transform="translate(1797.5 534)" fill="rgba(200,227,248,0.6)"/>
+    <path id="Down_Arrow_9_" d="M6.6,0a.6.6,0,0,0-.424.176l-6,6a.6.6,0,0,0,.848.848L6.6,1.448,12.169,7.02a.6.6,0,0,0,.848-.848l-6-6A.6.6,0,0,0,6.6,0ZM7.02,4.973l6,6a.6.6,0,1,1-.848.848L6.6,6.245,1.024,11.817a.6.6,0,0,1-.848-.848l6-6a.6.6,0,0,1,.848,0Z" transform="translate(1818.493 541) rotate(90)" fill="#3c8ef9"/>
+  </g>
+</svg>

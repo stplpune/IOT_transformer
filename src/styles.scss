@@ -1,1 +1,75 @@
-/* You can add global styles to this file, and also import other style files */
+@use 'assets/styles/theme';
+@use '@angular/material' as mat;
+
+body { 
+  margin: 0; 
+  font-family: Poppins, "Poppins", sans-serif!important; 
+  font-size: .9rem!important; 
+}
+mat-card.plain-card {
+  background: #FFFFFF;
+  border-radius: 12px;
+  box-shadow: none;
+}
+// filter style
+.filter-header {
+  padding: 15px;
+  margin-bottom: 15px!important;
+  border-radius: 5px;
+}
+.my-google-map .mat-mdc-form-field-subscript-wrapper,
+.filter-header .mat-mdc-form-field-subscript-wrapper {
+  display: none;
+}
+.my-google-map .mdc-notched-outline__leading{
+  border-bottom-left-radius: 0!important;
+}
+.my-google-map .mdc-notched-outline__trailing{
+  border-bottom-right-radius: 0!important;
+}
+// table style
+.table-content{
+  height: 360px;
+  min-height: calc(100vh - 280px);
+  overflow: auto;
+}
+
+// dialog style 
+.mdc-dialog__title.modal-header::before{
+  display: none;
+}
+.mdc-dialog__title.modal-header{
+  padding: 10px 10px 10px 24px;
+}
+// mat-error style
+.mat-mdc-form-field-error span {
+  font-size: .75rem;
+}
+
+.snack-success .mdc-snackbar__surface {
+  background-color: #198754 !important;
+  color: #fff !important;
+}
+
+.snack-danger .mdc-snackbar__surface {
+  background-color: #DC3545 !important;
+  color: #fff !important;
+}
+
+.snack-warning .mdc-snackbar__surface {
+  background-color: #FFC107 !important;
+}
+
+.snack-warning .mat-mdc-snack-bar-container,
+.snack-warning .mdc-snackbar__label {
+  color: #000 !important;
+}
+
+.mdc-dialog__title.modal-header::before{
+    display: none;
+
+}
+.mdc-dialog__title.modal-header{
+    padding: 10px 24px;
+}
+

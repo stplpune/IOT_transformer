@@ -1,0 +1,83 @@
+<mat-card class="plain-card">
+    <mat-card-content>
+      <div class="filter-header">
+        <div class="row gx-3">
+          <div class="col-md-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <!-- <mat-label>Search Device</mat-label> -->
+              <input matInput [formControl]="textSearch" (keypress)="validation.noFirstSpaceAllow($event)"
+                placeholder="Search Transformer">
+            </mat-form-field>
+          </div>
+  
+          <div class="col-md-auto">
+            <div class="d-flex align-items-center gap-1">
+              <button mat-raised-button class="" color="primary" (click)="getAllTransformer()">Search</button>
+            </div>
+          </div>
+  
+          <div class="col-md text-end">
+            <button mat-raised-button color="accent" (click)="addTransformerModal()">
+              Add Transformer
+            </button>
+          </div>
+  
+        </div>
+      </div>
+      <div class="table-responsive table-content scrollbar">
+        <table mat-table [dataSource]="dataSource" class="dashboard-table">
+          <ng-container matColumnDef="srNo">
+            <th mat-header-cell *matHeaderCellDef> Sr.No. </th>
+            <td mat-cell *matCellDef="let element; let i = index;" class="mxw-80">{{i + 1}}</td>
+          </ng-container>
+          <ng-container matColumnDef="transformerName">
+            <th mat-header-cell *matHeaderCellDef>Transformer Name</th>
+            <td mat-cell *matCellDef="let element">{{element.transformerName}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="deviceName">
+            <th mat-header-cell *matHeaderCellDef>Device Name</th>
+            <td mat-cell *matCellDef="let element">{{element.deviceName}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="substationName">
+            <th mat-header-cell *matHeaderCellDef>Substation Name</th>
+            <td mat-cell *matCellDef="let element">{{element.substationName}}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="feederName">
+            <th mat-header-cell *matHeaderCellDef>Feeder Name</th>
+            <td mat-cell *matCellDef="let element">{{element.feederName}}</td>
+          </ng-container>
+          
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef> Actions </th>
+            <td mat-cell *matCellDef="let element">
+              <div class="d-flex">
+                <button mat-icon-button type="button" id="tooltip" color="primary" matTooltipPosition="right"
+                  matTooltipClass="tooltip" (click)="addTransformerModal(element)">
+                  <mat-icon class="">edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" type="button" (click)="deleteDialogOpen(element)">
+                  <mat-icon class=""> delete </mat-icon>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+  
+          <tr class="mat-row p-2 w-100" *matNoDataRow col>
+            <td class="alert alert-danger text-center m-2 mt-2" colspan="12">No data found</td>
+          </tr>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+      <ng-container *ngIf="tableDatasize > 10">
+        <mat-paginator [pageSizeOptions]="[10]" [length]="tableDatasize" [pageIndex]="pageNumber" showFirstLastButtons
+          hidePageSize="true" (page)="pageChanged($event)">
+        </mat-paginator>
+      </ng-container>
+  
+    </mat-card-content>
+  </mat-card>
+

@@ -1,0 +1,101 @@
+// header style starts
+::ng-deep body{
+  background: #E8F4FF!important;
+}
+.topbar {
+  background: #27719E;
+  padding-block: 0px;
+  display: flex;
+  justify-content: end;
+}
+.topbar ul {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: end;
+  list-style: none;
+  color: #ffff;
+}
+.topbar ul li {
+  padding: 4px 10px;
+  font-size: 10px;
+  display: flex;
+  border-right: 1px solid #4893C1;
+}
+.topbar ul li a {
+  color: #fff;
+  font-size: 10px;
+  text-decoration: none;
+}
+.topbar ul li select {
+  font-size: 10px;
+}
+.topbar option {
+  color: #3c3c3c;
+  font-size: .85rem;
+}
+.main-header {
+  background: #E8F4FF;
+}
+.logoMenus {
+  display: flex;
+  justify-content: end;
+}
+.logoMenus ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+}
+.logoMenus ul li {
+  display: inline-block;
+  padding: 5px;
+}
+.logoMenus ul li img {
+  height: 50px;
+}
+marquee p{
+  border-left: 5px solid var(--main-color);
+  margin-bottom: 0;
+  font-size: .9rem;
+}
+.marquee-o span{
+  width: 120px;
+  font-size: .9rem;
+}
+.menubar {
+  background: #27719E;
+
+}
+.menubar ul {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: end;
+}
+.menubar ul li {
+  display: inline-block;
+}
+.menubar ul li a {
+  padding: 8px 15px 4px;
+  display: inline-block;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: .85rem;
+  border-bottom: 4px solid transparent;
+  text-transform: uppercase;
+  letter-spacing: .3px;
+  transition: .3s;
+}
+.menubar ul li a.active,
+.menubar ul li a:hover {
+  border-bottom: 4px solid #f5a800;
+}
+.menubar ul li a.btn-yellow {
+  background: #F5A800;
+}
+.menubar ul li a.btn-yellow:hover {
+  background: #e69e02;
+  border-bottom: 4px solid #e69e02;
+}
+// header style ends

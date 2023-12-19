@@ -1,0 +1,18 @@
+<div mat-dialog-title class="modal-header bg-main-gradient d-flex align-items-center justify-content-between">
+    <div class="text-start text-white">Logout </div>
+    <button mat-icon-button class="btn-modal-close" mat-dialog-close="true" (click)="closeDialog()">
+        <mat-icon class="material-symbols-rounded text-white">
+            close
+        </mat-icon>
+    </button>
+</div>
+<mat-dialog-content class="form-container">
+    <p class="fs-main text-secondary">{{data?.title}}</p>
+</mat-dialog-content>
+<div mat-dialog-actions class="modal-footer">
+    <div class="d-flex justify-content-end w-100">
+        <button mat-stroked-button mat-dialog-close type="button" color="warn" (click)="closeDialog('No')">{{data?.cancelButton}}</button>
+        <button mat-stroked-button color="primary" type="submit" (click)="closeDialog('Yes')">{{data?.okButton}}</button>
+    </div>
+</div>
+

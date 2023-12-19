@@ -1,0 +1,197 @@
+
+@use '@angular/material' as mat;
+@use 'material-style';
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,500;1,600;1,700&display=swap');
+@include mat.core();
+
+/* For use in src/lib/core/theming/_palette.scss */
+$md-palette1: (
+    50 : #e2eeff,
+    100 : #b6d4fe,
+    200 : #86b7fe,
+    300 : #569afe,
+    400 : #3184fd,
+    500 : #0d6efd,
+    600 : #0b66fd,
+    700 : #095bfc,
+    800 : #0751fc,
+    900 : #033ffc,
+    A100 : #ffffff,
+    A200 : #eff2ff,
+    A400 : #bcc8ff,
+    A700 : #a2b4ff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+/* For use in src/lib/core/theming/_palette.scss */
+$md-palette2: (
+    50 : #e3f1ea,
+    100 : #badbcc,
+    200 : #8cc3aa,
+    300 : #5eab87,
+    400 : #3c996e,
+    500 : #198754,
+    600 : #167f4d,
+    700 : #127443,
+    800 : #0e6a3a,
+    900 : #085729,
+    A100 : #8bffb5,
+    A200 : #58ff94,
+    A400 : #25ff74,
+    A700 : #0bff63,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+/* For use in src/lib/core/theming/_palette.scss */
+$md-palette3: (
+    50 : #f7e6e7,
+    100 : #ebc0c4,
+    200 : #dd969d,
+    300 : #cf6c76,
+    400 : #c54d58,
+    500 : #bb2d3b,
+    600 : #b52835,
+    700 : #ac222d,
+    800 : #a41c26,
+    900 : #961119,
+    A100 : #ffc7c9,
+    A200 : #ff9499,
+    A400 : #ff6168,
+    A700 : #ff4750,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #ffffff,
+    )
+);
+
+$primary: mat.define-palette($md-palette1);
+$accent: mat.define-palette($md-palette2, 500);
+$warn: mat.define-palette($md-palette3);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$IOT_transformer-theme: mat.define-light-theme((
+  color: (
+    primary: $primary,
+    accent: $accent,
+    warn: $warn,
+  )
+));
+@include mat.all-component-themes($IOT_transformer-theme);
+/* You can add global styles to this file, and also import other style files */
+@include mat.all-component-densities(-3);
+@include mat.form-field-density(-5);
+
+// check README file for following class details
+$colors: (
+  "primary-m": mat.get-color-from-palette($primary),
+  "primary-light": mat.get-color-from-palette($primary, lighter),
+  "primary-300": mat.get-color-from-palette($primary, 300),
+  "accent": mat.get-color-from-palette($accent),
+  "accent-light": mat.get-color-from-palette($accent, lighter),
+  "accent-300": mat.get-color-from-palette($accent, 300),
+  "warn": mat.get-color-from-palette($warn),
+  "warn-light": mat.get-color-from-palette($warn, lighter),
+  "warn-300": mat.get-color-from-palette($warn, 300),
+  "purple": #8E78EB,
+  "orange": #F68469,
+  "info-light": #48D1B1,
+  "pink": #CE5BE3,
+  "main-gradient": linear-gradient(190deg, mat.get-color-from-palette($accent) 0%, mat.get-color-from-palette($primary) 100%),
+);
+// Define a mixin to generate styles for each color
+@mixin color-styles($name, $styles: ("text":"color","bg":"background", "border":"border")) {
+  @each $style, $val1 in $styles {
+    .#{$style}-#{$name} {
+        @if(#{$style}=="border"){
+            #{$val1}: 1px solid map-get($colors, $name);
+        }
+        @else{
+             #{$val1}: map-get($colors, $name);
+        }
+    }
+  }
+}
+// Generate color classes with property prefixes
+@each $color, $value in $colors {
+  @include color-styles($color);
+}
+
+// sidebar scss color
+  .sidebar .nav-links li:hover, 
+  .sidebar .nav-links li.active{
+    background: mat.get-color-from-palette($primary, 50)!important;
+  }
+  .sidebar .nav-links li:hover .sub-menu li, 
+  .sidebar .nav-links li.active .sub-menu li{
+    background: none;
+    color: mat.get-color-from-palette($primary, 50);
+  }
+  .sidebar .nav-links li:hover .sub-menu li a:hover{
+    color: mat.get-color-from-palette($primary, 50);
+  }
+  .sidebar.close .nav-links li .sub-menu .link_name{
+    color: mat.get-color-from-palette($primary)!important;
+    background: mat.get-color-from-palette($primary, 100);
+  }
+
+// common scss color
+body { 
+    background: mat.get-color-from-palette($primary, 50)!important;
+}
+footer{
+    background: mat.get-color-from-palette($primary, 100);
+}
+.filter-header {
+    background: mat.get-color-from-palette($primary, 50)!important;
+    border: 1px solid mat.get-color-from-palette($primary, 200);
+}
+.dashboard-table{
+    border: 1px solid mat.get-color-from-palette($primary, 200)!important;
+}
+.dashboard-table .mdc-data-table__header-cell{
+    color: mat.get-contrast-color-from-palette($primary, 300) !important;
+    background: mat.get-color-from-palette($primary, 50) !important;
+    font-weight: 500;
+}

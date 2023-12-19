@@ -1,0 +1,88 @@
+<mat-card class="plain-card">
+  <mat-card-content>
+    <div class="filter-header">
+      <div class="row gx-3">
+        <div class="col-sm-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <!-- <mat-label>Page Name</mat-label> -->
+            <input matInput [formControl]="TextSearch" (keypress)="validation.noFirstSpaceAllow($event)" placeholder="Page Name">
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-auto">
+          <div class="d-flex align-items-center gap-1">
+            <button mat-stroked-button class="" color="primary" (click)="getPagesAccessList()">Search</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="table-responsive table-content scrollbar">
+      <table mat-table [dataSource]="dataSource" class="dashboard-table">
+        <ng-container matColumnDef="srNo">
+          <th mat-header-cell *matHeaderCellDef> Sr.No. </th>
+          <td mat-cell *matCellDef="let element; let i = index;" class="mxw-80">{{i + 1}}</td>
+        </ng-container>
+        <ng-container matColumnDef="pageName">
+          <th mat-header-cell *matHeaderCellDef>Page Name</th>
+          <td mat-cell *matCellDef="let element">{{element.pageName}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="add">
+          <th mat-header-cell *matHeaderCellDef> Add </th>
+          <td mat-cell *matCellDef="let element">
+            <mat-checkbox class="example-margin" [(ngModel)]="element.addFlag"
+              [checked]="element.addFlag"></mat-checkbox>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="update">
+          <th mat-header-cell *matHeaderCellDef> Update </th>
+          <td mat-cell *matCellDef="let element">
+            <mat-checkbox class="example-margin" [(ngModel)]="element.updateFlag"
+              [checked]="element.updateFlag"></mat-checkbox>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="view">
+          <th mat-header-cell *matHeaderCellDef> View </th>
+          <td mat-cell *matCellDef="let element">
+            <mat-checkbox class="example-margin" [(ngModel)]="element.viewFlag"
+              [checked]="element.viewFlag"></mat-checkbox>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef> Delete </th>
+          <td mat-cell *matCellDef="let element">
+            <mat-checkbox class="example-margin" [(ngModel)]="element.deleteFlag"
+              [checked]="element.deleteFlag"></mat-checkbox>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="all">
+          <th mat-header-cell *matHeaderCellDef> All </th>
+          <td mat-cell *matCellDef="let element; let i=index;">
+            <mat-checkbox class="example-margin" (change)="selectRow($event,i)"
+              [(ngModel)]="element.addFlag && element.updateFlag && element.viewFlag && element.deleteFlag"
+              [checked]="(element.addFlag && element.updateFlag && element.viewFlag && element.deleteFlag)"></mat-checkbox>
+          </td>
+        </ng-container>
+
+        <tr class="mat-row p-2 w-100" *matNoDataRow col>
+          <td class="alert alert-danger text-center m-2 mt-2" colspan="12">No data found</td>
+        </tr>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <!-- <ng-container>
+        <mat-paginator [pageSizeOptions]="[10]" [length]="totalRows" hidePageSize="true" showFirstLastButtons
+          (page)="pageChanged($event)">
+        </mat-paginator>
+      </ng-container> -->
+
+    </div>
+    <div class="text-end" *ngIf="dataSource?.length">
+      <button mat-stroked-button color="primary" type="submit" (click)="onSubmit()">Submit</button>
+    </div>
+  </mat-card-content>
+</mat-card>

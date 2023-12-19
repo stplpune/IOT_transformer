@@ -1,0 +1,22 @@
+<div mat-dialog-title class="modal-header bg-main-gradient d-flex align-items-center justify-content-between">
+    <div class="text-start text-white">{{data ? 'Update Device' : 'Add Device'}}</div>
+    <mat-icon class="material-symbols-outlined text-white" mat-dialog-close="true">
+        close
+    </mat-icon>
+</div>
+
+<form [formGroup]="deviceForm">
+    <mat-dialog-content>
+        <p class="form-label mb-1">Device Name</p>
+        <mat-form-field appearance="outline" class="w-100">
+            <input matInput placeholder="Device Name" (keypress)="validation.noFirstSpaceAllow($event)" formControlName="deviceId">
+            <!-- <mat-error *ngIf="f['deviceId']?.hasError('required')">Device Name is Required</mat-error> -->
+        </mat-form-field>
+
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+        <button mat-stroked-button color="warn" type="button" mat-dialog-close>Cancel</button>
+        <button mat-stroked-button color="accent" type="submit" (click)="onSubmit()">{{data ? 'Update' : 'Add'}}</button>
+    </mat-dialog-actions>
+</form>

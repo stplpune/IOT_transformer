@@ -1,0 +1,68 @@
+<div mat-dialog-title class="modal-header bg-main-gradient d-flex align-items-center justify-content-between">
+    <div class="text-start text-white">{{data ? 'Update User' : 'Add User'}}</div>
+    <mat-icon class="material-symbols-outlined text-white" mat-dialog-close="true">
+        close
+    </mat-icon>
+</div>
+
+<form [formGroup]="userForm">
+<mat-dialog-content>
+    <div class="row">
+        <div class="col-sm-6">
+            <p class="form-label mb-1">Name</p>
+            <mat-form-field appearance="outline" class="w-100">
+                <input matInput placeholder="Name" (keypress)="validation.noFirstSpaceAllow($event)"
+                    formControlName="name">
+                <!-- <mat-error *ngIf="f['deviceId']?.hasError('required')">Device Name is Required</mat-error> -->
+            </mat-form-field>
+        </div>
+
+        <div class="col-sm-6">
+            <p class="form-label mb-1">User Name</p>
+            <mat-form-field appearance="outline" class="w-100">
+                <input matInput placeholder="User Name" (keypress)="validation.noFirstSpaceAllow($event)"
+                    formControlName="userName">
+                <!-- <mat-error *ngIf="f['deviceId']?.hasError('required')">Device Name is Required</mat-error> -->
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <p class="form-label mb-1">Substation</p>
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-select formControlName="substationId" placeholder="Select Substation">
+                    <mat-option *ngFor="let sub of substationArray" [value]="sub.id">{{sub.text}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-sm-6">
+            <p class="form-label mb-1">User Type</p>
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-select formControlName="userTypeId" placeholder="Select User Type">
+                  <mat-option *ngFor="let userTy of userTypeArray" [value]="userTy.id">{{userTy.text}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <p class="form-label mb-1">Address</p>
+            <mat-form-field appearance="outline" class="w-100">
+                <input matInput placeholder="Address" (keypress)="validation.noFirstSpaceAllow($event)"
+                    formControlName="address">
+                <!-- <mat-error *ngIf="f['deviceId']?.hasError('required')">Device Name is Required</mat-error> -->
+            </mat-form-field>
+        </div>
+        <div class="col-sm-6"></div>
+    </div>
+
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+        <button mat-stroked-button color="warn" type="button" mat-dialog-close>Cancel</button>
+        <button mat-stroked-button color="accent" type="submit" (click)="onSubmit()">{{data ? 'Update' :
+            'Add'}}</button>
+    </mat-dialog-actions>
+</form>

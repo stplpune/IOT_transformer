@@ -1,0 +1,26 @@
+
+.loginbox-main {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.loginbox-content img {
+    max-width: 130px;
+}
+.loginbox-content  {
+    max-width: 400px;
+    width: 100%;
+}
+.loginbox-content mat-card {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 0px 50px #4EAAF629;
+    border-radius: 12px;
+    margin-inline: auto;
+    padding: 3%;
+}
+
+  #captcha{
+    background-image: url('../../../assets/images/captcha_bg.jpg');
+    border-radius: 5px;
+  }

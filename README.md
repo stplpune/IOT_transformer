@@ -25,3 +25,20 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+<!-- Pkg Installed -->
+
+<!-- 
+npm i crypto-js 
+npm i @types/crypto-js
+npm i ngx-spinner@14.0.0 
+-->
+
+<!-- SCSS angular material dyanamic class -->
+## for text color
+text-primary-m, text-primary-light, text-primary-300, text-accent, text-accent-light, text-accent-300, text-warn, text-warn-light, text-warn-300, text-purple, text-orange, text-info-light, text-pink, 
+## for background color
+bg-primary-m, bg-primary-light, bg-primary-300, bg-accent, bg-accent-light, bg-accent-300, bg-warn, bg-warn-light, bg-warn-300, bg-purple, bg-orange, bg-info-light, bg-pink, bg-main-gradient
+## for border color
+border-primary-m, border-primary-light, border-primary-300, border-accent, border-accent-light, border-accent-300, border-warn, border-warn-light, border-warn-300, border-purple, border-orange, border-info-light, border-pink, 
+

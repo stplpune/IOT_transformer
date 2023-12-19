@@ -1,0 +1,27 @@
+<header class="container-fluid d-flex align-items-center py-2">
+    <p class="mb-0">{{this.titleName}}</p>
+    <div class="nav-right ms-auto">
+        <div class="d-flex align-items-center">
+            <button mat-icon-button [matMenuTriggerFor]="notificationsMenu" color=""
+                aria-label="Example icon-button with a heart icon">
+                <span class="material-icons text-muted">
+                    notifications
+                </span>
+            </button>
+            <mat-menu #notificationsMenu="matMenu" xPosition="before">
+                <button mat-menu-item>Item 1</button>
+                <button mat-menu-item>Item 2</button>
+                <button mat-menu-item routerLink="notifications">view more</button>
+            </mat-menu>
+            <a class="d-block ms-2" href="javascript:void(0)" [matMenuTriggerFor]="beforeMenu">
+                <img class="avatar" src="../../../assets/images/profile.jpg" alt="...">
+            </a>
+            <mat-menu #beforeMenu="matMenu" xPosition="before">
+                <!-- <button mat-menu-item>Profile</button> -->
+                <button mat-menu-item (click)="openChangePasswordDialog()">Change Password</button>
+                <button mat-menu-item routerLink="login" (click)="logOut()">Logout</button>
+            </mat-menu>
+
+        </div>
+    </div>
+</header>

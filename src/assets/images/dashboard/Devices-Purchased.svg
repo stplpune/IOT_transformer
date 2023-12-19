@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="75" height="75" viewBox="0 0 75 75">
+  <g id="Devices_Purchased" data-name="Devices Purchased" transform="translate(-167 -188)">
+    <circle id="Ellipse_418" data-name="Ellipse 418" cx="37.5" cy="37.5" r="37.5" transform="translate(167 188)" fill="rgba(169,220,248,0.6)"/>
+    <g id="Group_18105" data-name="Group 18105" transform="translate(185.518 206.415)">
+      <g id="purchasing" transform="translate(0 0)">
+        <ellipse id="Ellipse_422" data-name="Ellipse 422" cx="1.862" cy="1.862" rx="1.862" ry="1.862" transform="translate(17.689 34.446)" fill="#457ae8"/>
+        <ellipse id="Ellipse_423" data-name="Ellipse 423" cx="1.862" cy="1.862" rx="1.862" ry="1.862" transform="translate(10.241 34.446)" fill="#457ae8"/>
+        <path id="Path_27169" data-name="Path 27169" d="M9.358,40.429a1.829,1.829,0,0,0,1.782,1.39h11A1.821,1.821,0,0,0,23.9,40.533l2.9-9.185A1.837,1.837,0,0,0,25.04,28.96H7.754L5.88,21.465A.616.616,0,0,0,5.286,21H1v1.225H4.809Zm2.051-1.672H15.7v1.225H11.41Z" transform="translate(-1 -8.753)" fill="#457ae8"/>
+        <rect id="Rectangle_18468" data-name="Rectangle 18468" width="3.724" height="3.724" rx="1" transform="translate(17.689 6.517)" fill="#457ae8"/>
+        <path id="Path_27170" data-name="Path 27170" d="M39,14h9.185v1.225H39Z" transform="translate(-15.731 -6.04)" fill="#457ae8"/>
+        <rect id="Rectangle_18469" data-name="Rectangle 18469" width="3.724" height="3.724" rx="1" transform="translate(17.689 13.034)" fill="#457ae8"/>
+        <path id="Path_27171" data-name="Path 27171" d="M39,24h9.185v1.225H39Z" transform="translate(-15.731 -9.916)" fill="#457ae8"/>
+        <path id="Path_27172" data-name="Path 27172" d="M42.254,1.178A.606.606,0,0,0,41.819,1H22.225A1.228,1.228,0,0,0,21,2.225V18.145h1.225V2.225H41.207V5.286a1.228,1.228,0,0,0,1.225,1.225h3.062v30H33.247V37.74H45.493a1.228,1.228,0,0,0,1.225-1.225V5.9a.632.632,0,0,0-.178-.435Z" transform="translate(-8.753 -1)" fill="#457ae8"/>
+      </g>
+      <path id="rupee_19_" data-name="rupee (19)" d="M12.287,5.143V4H6V5.143H8A1.711,1.711,0,0,1,9.609,6.286H6V7.429H9.609A1.711,1.711,0,0,1,8,8.572H6v1.38l3.193,3.193h1.616L7.38,9.715H8a2.862,2.862,0,0,0,2.8-2.286h1.487V6.286H10.8a2.82,2.82,0,0,0-.528-1.143Z" transform="translate(21.827 20.205)" fill="#457ae8"/>
+    </g>
+  </g>
+</svg>
