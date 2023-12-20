@@ -13,7 +13,7 @@
                 <mat-form-field appearance="outline" class="w-100">
                     <input matInput placeholder="Transformer Name" (keypress)="validation.noFirstSpaceAllow($event)"
                         formControlName="transformerName">
-                    <!-- <mat-error *ngIf="f['deviceId']?.hasError('required')">Device Name is Required</mat-error> -->
+                        <mat-error *ngIf="f['transformerName']?.hasError('pattern')">Please Enter Valid Transformer Name</mat-error>
                 </mat-form-field>
             </div>
             <div class="col-sm-6">

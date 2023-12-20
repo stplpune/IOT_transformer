@@ -61,10 +61,10 @@ export class AddUserComponent {
   get f(){return this.userForm.controls}
   user_Form() {
     this.userForm = this.fb.group({
-      name: ['', [Validators.required]],
-      address: ['', [Validators.required]],
+      name: ['', [Validators.required, Validators.pattern(this.validation.fullName)]],
+      address: ['', [Validators.required, Validators.pattern('^[^[ ]+|[ ][gm]+$')]],
       userTypeId: ['', [Validators.required]],
-      userName: ['', [Validators.required]],
+      userName: ['',[Validators.required,Validators.minLength(3),Validators.pattern('^[^[ ]+|[ ][gm]+$')]], 
       substationId: ['', [Validators.required]],
     })
   }

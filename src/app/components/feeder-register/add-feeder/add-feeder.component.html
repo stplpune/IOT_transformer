@@ -11,7 +11,7 @@
         <p class="form-label mb-1">Feeder Name</p>
         <mat-form-field appearance="outline" class="w-100">
             <input matInput placeholder="Feeder Name" (keypress)="validation.noFirstSpaceAllow($event)" formControlName="feederName">
-            <!-- <mat-error *ngIf="f['deviceId']?.hasError('required')">Feeder Name is Required</mat-error> -->
+            <mat-error *ngIf="f['feederName']?.hasError('pattern')">Please Enter Valid Feeder Name</mat-error>
         </mat-form-field>
        </div>
        <div>

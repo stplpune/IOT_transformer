@@ -64,7 +64,7 @@ export class AddSubstationComponent {
   substation_Form() {
     this.substationForm = this.fb.group({
       id: [0],
-      substationName: ['', [Validators.required]],
+      substationName: ['', [Validators.required, Validators.pattern('^[^[ ]+|[ ][gm]+$')]],
       granpanchayatId: ['', [Validators.required]],
       address:['']
     })

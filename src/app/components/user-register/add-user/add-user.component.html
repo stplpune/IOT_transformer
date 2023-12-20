@@ -13,18 +13,23 @@
             <mat-form-field appearance="outline" class="w-100">
                 <input matInput placeholder="Name" (keypress)="validation.noFirstSpaceAllow($event)"
                     formControlName="name">
-                <!-- <mat-error *ngIf="f['deviceId']?.hasError('required')">Device Name is Required</mat-error> -->
+                <mat-error *ngIf="f['name']?.hasError('pattern')">Please Enter Valid Name</mat-error>
             </mat-form-field>
         </div>
 
         <div class="col-sm-6">
             <p class="form-label mb-1">User Name</p>
             <mat-form-field appearance="outline" class="w-100">
-                <input matInput placeholder="User Name" (keypress)="validation.noFirstSpaceAllow($event)"
-                    formControlName="userName">
-                <!-- <mat-error *ngIf="f['deviceId']?.hasError('required')">Device Name is Required</mat-error> -->
+                <input matInput placeholder="User Name" formControlName="userName"
+                    (keypress)="validation.noFirstSpaceAllow($event);validation.alphabetsWithSpaces($event)" maxlength="50">
+                <mat-error>
+                    <span *ngIf="f['userName']?.hasError('minlength') || f['userName']?.hasError('pattern')">
+                        {{f['userName']?.hasError('minlength')? 'Please Enter Minimum 3 Character' : 'Please Enter Valid User Name'}}
+                    </span>
+                </mat-error>
             </mat-form-field>
         </div>
+
     </div>
 
     <div class="row">
@@ -52,7 +57,7 @@
             <mat-form-field appearance="outline" class="w-100">
                 <input matInput placeholder="Address" (keypress)="validation.noFirstSpaceAllow($event)"
                     formControlName="address">
-                <!-- <mat-error *ngIf="f['deviceId']?.hasError('required')">Device Name is Required</mat-error> -->
+                <mat-error *ngIf="f['address']?.hasError('pattern')">Please Enter Valid Address</mat-error>
             </mat-form-field>
         </div>
         <div class="col-sm-6"></div>

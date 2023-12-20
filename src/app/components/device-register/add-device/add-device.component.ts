@@ -55,7 +55,7 @@ deviceForm:FormGroup | any;
   device_Form() {
     this.deviceForm = this.fb.group({
       id: [0],
-      deviceId: ['', [Validators.required]]
+      deviceId: ['', [Validators.required, Validators.pattern('^[^[ ]+|[ ][gm]+$')]]
     })
   }
 

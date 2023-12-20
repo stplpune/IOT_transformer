@@ -10,7 +10,7 @@
         <p class="form-label mb-1">Device Name</p>
         <mat-form-field appearance="outline" class="w-100">
             <input matInput placeholder="Device Name" (keypress)="validation.noFirstSpaceAllow($event)" formControlName="deviceId">
-            <!-- <mat-error *ngIf="f['deviceId']?.hasError('required')">Device Name is Required</mat-error> -->
+            <mat-error *ngIf="f['deviceId']?.hasError('pattern')">Please Enter Valid Device Name</mat-error>
         </mat-form-field>
 
     </mat-dialog-content>

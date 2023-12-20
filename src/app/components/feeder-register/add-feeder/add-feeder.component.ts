@@ -61,7 +61,7 @@ export class AddFeederComponent {
   feeder_Form() {
     this.feederForm = this.fb.group({
       id: [0],
-      feederName: ['', [Validators.required]],
+      feederName: ['', [Validators.required, Validators.pattern('^[^[ ]+|[ ][gm]+$')]],
       substationId: ['', [Validators.required]],
     })
   }

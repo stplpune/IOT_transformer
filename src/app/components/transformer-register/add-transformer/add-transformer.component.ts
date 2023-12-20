@@ -68,7 +68,7 @@ export class AddTransformerComponent {
   
   transformerFormGroup() {
     this.transformerForm = this.fb.group({
-      transformerName: ['', [Validators.required]],
+      transformerName: ['', [Validators.required, Validators.pattern('^[^[ ]+|[ ][gm]+$')]],
       deviceMasterId: ['', [Validators.required]],
       substationId: ['', [Validators.required]],
       feederId: ['', [Validators.required]],  
