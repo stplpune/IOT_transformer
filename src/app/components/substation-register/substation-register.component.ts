@@ -48,7 +48,7 @@ export class SubstationRegisterComponent {
   tableDatasize!: number;
   // totalPages!: number;
   pageNumber: number = 1;
-  displayedColumns = ['srNo', 'substationName', 'granpanchayat', 'action'];
+  displayedColumns = ['srNo', 'substationName', 'granpanchayat','address', 'action'];
   textSearch = new FormControl('');
 
   constructor(

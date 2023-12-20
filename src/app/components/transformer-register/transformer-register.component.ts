@@ -47,7 +47,7 @@ export class TransformerRegisterComponent {
   tableDatasize!: number;
   // totalPages!: number;
   pageNumber: number = 1;
-  displayedColumns = ['srNo', 'transformerName', 'deviceName','substationName', 'feederName','action'];
+  displayedColumns = ['srNo', 'transformerName', 'deviceName','substationName', 'feederName','address','action'];
   textSearch = new FormControl('');
 
   constructor(
