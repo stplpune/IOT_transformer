@@ -59,7 +59,7 @@ export class PageRightAccessComponent {
     this.spinner.show();
     let queryParam = '';
     queryParam = '?UserTypeId=' + 1 + '&Textsearch=' + this.TextSearch.value?.trim();
-    this.apiService.setHttp('GET', 'MP/UserPage/GetByCriteria' + queryParam, false, false, false, 'MPDSSBaseUrl')
+    this.apiService.setHttp('GET', 'MSEB_iOT/api/UserPages/GetByCriteria' + queryParam, false, false, false, 'baseUrl')
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -105,7 +105,7 @@ export class PageRightAccessComponent {
       pageAccessArray.push(obj);
     })
 
-    this.apiService.setHttp('post', 'MP/UserPage/AddRecord', false, pageAccessArray, false, 'MPDSSBaseUrl');
+    this.apiService.setHttp('post', 'MSEB_iOT/api/UserPages/AddRecord', false, pageAccessArray, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         this.spinner.hide();

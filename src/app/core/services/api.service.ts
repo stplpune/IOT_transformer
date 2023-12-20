@@ -17,13 +17,8 @@ export class ApiService {
   getBaseurl(url: string) {
     switch (url) {
       // Base url use for  developement
-
-      case 'MPDSSBaseUrl': return 'https://mp-dss-api.mahamining.com/'; break;
-      // default: return ''; break;
-
       case 'baseUrl': return 'https://demoapimsebiot.erpguru.in/'; break;
       default: return ''; break;
-      
     }
   }
 
