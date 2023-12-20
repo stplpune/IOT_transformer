@@ -16,6 +16,7 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { WebStorageService } from 'src/app/core/services/web-storage.service';
 
 @Component({
   selector: 'app-page-right-access',
@@ -46,19 +47,21 @@ export class PageRightAccessComponent {
   constructor(
     private apiService: ApiService,
     public commonService: CommonMethodsService,
+    private webStorageService:WebStorageService,
     private spinner: NgxSpinnerService,
     private errorService: ErrorsService,
     public validation: ValidationService
   ) {}
 
   ngOnInit(): void {
+    this.webStorageService.assignLocalStorageData();
     this.getPagesAccessList();
   }
 
   getPagesAccessList() {
     this.spinner.show();
     let queryParam = '';
-    queryParam = '?UserTypeId=' + 1 + '&Textsearch=' + this.TextSearch.value?.trim();
+    queryParam = '?UserTypeId=' + this.webStorageService.userTypeId + '&Textsearch=' + this.TextSearch.value?.trim();
     this.apiService.setHttp('GET', 'MSEB_iOT/api/UserPages/GetByCriteria' + queryParam, false, false, false, 'baseUrl')
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
@@ -89,13 +92,13 @@ export class PageRightAccessComponent {
 
     tableData.map((ele: any) => {
       let obj = {
-        createdBy: 0,
-        modifiedBy: 0,
+        createdBy: this.webStorageService.userId,
+        modifiedBy: this.webStorageService.userId,
         createdDate: new Date(),
         modifiedDate: new Date(),
         isDeleted: false,
         id: ele.id || 0,
-        userTypeId: 1,
+        userTypeId: this.webStorageService.userTypeId,
         pageId: ele.pageId,
         addFlag: ele.addFlag,
         updateFlag: ele.updateFlag,
