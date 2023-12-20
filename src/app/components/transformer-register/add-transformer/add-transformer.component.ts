@@ -52,6 +52,7 @@ export class AddTransformerComponent {
 
 
   ngOnInit(): void {
+    this.webStorageService.assignLocalStorageData();
     this.transformerFormGroup();
     this. getDevice();
     this.getSubstation();

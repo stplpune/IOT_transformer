@@ -49,6 +49,7 @@ export class AddUserComponent {
   ) {}
 
   ngOnInit(): void {
+    this.webStorageService.assignLocalStorageData();
     this.user_Form();
     this.getSubstation();
     this.getUserType();

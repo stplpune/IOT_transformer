@@ -46,6 +46,7 @@ deviceForm:FormGroup | any;
   ) {}
 
   ngOnInit(): void {
+    this.webStorageService.assignLocalStorageData();
     this.device_Form();
     this.data ? this.editData() : '';
   }
@@ -65,7 +66,7 @@ deviceForm:FormGroup | any;
     else {
       let formData = this.deviceForm.getRawValue();
       let Addobj = {
-          "deviceId": formData?.deviceId,
+          "deviceId": formData?.deviceId,         
           // "createdBy": this.webStorageService.getUserId()
           "createdBy": this.webStorageService.userId
       }

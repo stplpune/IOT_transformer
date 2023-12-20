@@ -51,6 +51,7 @@ export class AddFeederComponent {
   ) {}
 
   ngOnInit(): void {
+    this.webStorageService.assignLocalStorageData();
     this.feeder_Form();
     this.getSubstation();
     this.data ? this.editData() : '';

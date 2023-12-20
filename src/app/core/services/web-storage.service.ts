@@ -20,7 +20,6 @@ export class WebStorageService {
 
   constructor(public router:Router,
     private commomMethod:CommonMethodsService) {
-      this.assignLocalStorageData();
      }
   setuId!:number;
   setLanguage = new Subject();

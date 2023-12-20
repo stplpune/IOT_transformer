@@ -51,6 +51,7 @@ export class AddSubstationComponent {
   ) { }
 
   ngOnInit(): void {
+    this.webStorageService.assignLocalStorageData();
     this.substation_Form();
     this.getGranpanchayat();
     this.data ? this.editData() : '';
