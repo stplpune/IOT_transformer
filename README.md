@@ -32,6 +32,8 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 npm i crypto-js 
 npm i @types/crypto-js
 npm i ngx-spinner@14.0.0 
+npm i @agm/core@1.1.0
+npm install @types/googlemaps --save-dev   == >> tsconfig.app.json == >> inside add  "types": ["googlemaps"]
 -->
 
 <!-- SCSS angular material dyanamic class -->
