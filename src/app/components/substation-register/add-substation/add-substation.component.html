@@ -37,6 +37,12 @@
 </form>
 
 
+<agm-map [latitude]="latitude" [zoom]="zoom" [longitude]="longitude" [zoomControl]="true"
+[streetViewControl]='false' [fullscreenControl]="true" [disableDefaultUI]="false" [mapTypeControl]='true'
+class="rounded agm-map-height-big" (mapReady)="onMapReady($event)" >
+<agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+(dragEnd)="markerDragEnd($event)"></agm-marker>
+</agm-map>
 
 
 

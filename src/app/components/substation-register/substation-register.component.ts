@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ApiService } from 'src/app/core/services/api.service';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -37,6 +37,7 @@ import { AddSubstationComponent } from './add-substation/add-substation.componen
     MatSlideToggleModule,
     MatIconModule
   ],
+  schemas:[CUSTOM_ELEMENTS_SCHEMA],
   providers: [CommonMethodsService, ApiService, ErrorsService],
   templateUrl: './substation-register.component.html',
   styleUrls: ['./substation-register.component.scss']
