@@ -58,7 +58,6 @@ export class AddSubstationComponent {
     this.substation_Form();
     this.getGranpanchayat();
     this.data ? this.editData() : '';
-    this.agmMapLoad();
   }
 
   get f() { return this.substationForm.controls }
@@ -97,8 +96,8 @@ export class AddSubstationComponent {
         "substationName": formData.substationName,
         "granpanchayatId": formData.granpanchayatId,
         "address":formData.address,
-        // "lat": this.markerPositions[0]?.lat,
-        // "long": this.markerPositions[0]?.lng,
+        "lat": this.latitude,
+        "long": this.longitude,
       }
 
       this.data ? obj = { ...obj, "modifiedBy": this.webStorageService.userId, "modifiedDate": new Date() } :
@@ -129,8 +128,9 @@ export class AddSubstationComponent {
       granpanchayatId: this.data.granpanchayatId,
       address:this.data.address
     })
-    // this.getAddressByLatLng(this.data.lat,this.data.long)
-    // this.markerPositions.push({ lat: this.data.lat, lng: this.data.long })
+    // this.getAddress(this.data.lat,this.data.long);
+    this.latitude = this.data.lat;
+    this.longitude = this.data.long;
   }
 
   //...........................................  Map Code Start Here .....................................//
@@ -138,12 +138,15 @@ export class AddSubstationComponent {
   geoCoder:any;
   map:any;
   zoom = 6;
-  latitude = 18.5245649;
-  longitude = 73.7228812;
+  latitude:any;
+  longitude:any;
   @ViewChild('search') public searchElementRef!: ElementRef;
 
   onMapReady(map?: any) {
+    map?.setOptions({ mapTypeControlOptions: { position: google.maps.ControlPosition.TOP_RIGHT },streetViewControl: false, 
+      zoomControl: true, fullscreenControl: true, disableDefaultUI: false, mapTypeControl: true});
     this.map = map;
+    this.agmMapLoad();
   }
 
 agmMapLoad(){
@@ -153,12 +156,11 @@ agmMapLoad(){
     let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, options);
     autocomplete.addListener("place_changed", () => {
       this.ngZone.run(() => {
-        let place:any = autocomplete.getPlace();
+        const place: google.maps.places.PlaceResult = autocomplete.getPlace();
         if (place.geometry === undefined || place.geometry === null) {return}
-        // this.address = place.formatted_address;
-        // this.latitude = place.geometry.location.lat();
-        // this.longitude = place.geometry.location.lng();
-        //this.zoom = 12;
+        this.latitude = place.geometry.location.lat();
+        this.longitude = place.geometry.location.lng();
+        this.getAddress(this.latitude, this.longitude);
       });
     });
   });
@@ -168,22 +170,23 @@ markerDragEnd($event: any) {
   this.latitude = $event.coords.lat;
   this.longitude = $event.coords.lng;
   this.getAddress(this.latitude, this.longitude);
+  this.searchElementRef.nativeElement = '';
+}
+
+addMarker(event: any) {
+  this.latitude = event.coords.lat;
+  this.longitude = event.coords.lng;
+  this.getAddress(this.latitude, this.longitude);
 }
 
 getAddress(latitude: any, longitude: any) {
   this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results: any, status: any) => {
     if (status === 'OK') {
       if (results[0]) {
-        // this.zoom = 15;
-        // this.address = results[0].formatted_address;
-      } else {
-        window.alert('No results found');
-      }
-    } else {
-      window.alert('Geocoder failed due to: ' + status);
-    }
-
-  });
+        this.zoom = 15;
+        this.f['address'].setValue(results[0].formatted_address);
+      } else {  window.alert('No results found')}
+    } else { window.alert('Geocoder failed due to: ' + status);}});
 }
 
  //...........................................  Map Code End Here .....................................//

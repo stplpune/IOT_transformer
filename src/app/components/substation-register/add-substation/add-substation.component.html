@@ -6,55 +6,49 @@
 </div>
 
 <form [formGroup]="substationForm">
-<mat-dialog-content>
-    <div class="row mt-6">
-        <div class="col-sm-6">
-            <p class="form-label mb-1">Substation Name</p>
-            <mat-form-field appearance="outline" class="w-100">
-                <input matInput placeholder="Substation Name" (keypress)="validation.noFirstSpaceAllow($event)"
-                    formControlName="substationName">
-                <!-- <mat-error *ngIf="f['deviceId']?.hasError('required')">Device Name is Required</mat-error> -->
-            </mat-form-field>
+    <mat-dialog-content>
+        <div class="row mt-6">
+            <div class="col-sm-6">
+                <p class="form-label mb-1">Substation Name</p>
+                <mat-form-field appearance="outline" class="w-100">
+                    <input matInput placeholder="Substation Name" (keypress)="validation.noFirstSpaceAllow($event)"
+                        formControlName="substationName">
+                    <!-- <mat-error *ngIf="f['deviceId']?.hasError('required')">Device Name is Required</mat-error> -->
+                </mat-form-field>
+            </div>
+
+            <div class="col-sm-6">
+                <p class="form-label mb-1">Granpanchayat</p>
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-select formControlName="granpanchayatId" placeholder="Select Granpanchayat">
+                        <mat-option *ngFor="let gramP of granpanchayatArray"
+                            [value]="gramP.id">{{gramP.text}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
         </div>
 
-        <div class="col-sm-6">
-            <p class="form-label mb-1">Granpanchayat</p>
+        <div class="card border-0 my-google-map">
             <mat-form-field appearance="outline" class="w-100">
-                <mat-select formControlName="granpanchayatId" placeholder="Select Granpanchayat">
-                    <mat-option *ngFor="let gramP of granpanchayatArray" [value]="gramP.id">{{gramP.text}}</mat-option>
-                </mat-select>
+                <input matInput placeholder="Search..." (keypress)="validation.noFirstSpaceAllow($event)" #search>
             </mat-form-field>
+            <div class="border border-muted">
+                <agm-map [latitude]="latitude || 18.5245649" [longitude]="longitude || 73.7228812" [zoom]="zoom" class="rounded agm-map-height-big"
+                    (mapReady)="onMapReady($event)" (mapClick)="addMarker($event);search.value=''">
+                    <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+                        (dragEnd)="markerDragEnd($event);search.value=''">
+                        <agm-info-window #infowindow>
+                            {{f['address'].value}}
+                        </agm-info-window>
+                    </agm-marker>
+                </agm-map>
+            </div>
         </div>
-    </div>
 
     </mat-dialog-content>
-
     <mat-dialog-actions align="end">
         <button mat-stroked-button color="warn" type="button" mat-dialog-close>Cancel</button>
         <button mat-stroked-button color="accent" type="submit" (click)="onSubmit()">{{data ? 'Update' :
             'Add'}}</button>
     </mat-dialog-actions>
 </form>
-
-
-<agm-map [latitude]="latitude" [zoom]="zoom" [longitude]="longitude" [zoomControl]="true"
-[streetViewControl]='false' [fullscreenControl]="true" [disableDefaultUI]="false" [mapTypeControl]='true'
-class="rounded agm-map-height-big" (mapReady)="onMapReady($event)" >
-<agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
-(dragEnd)="markerDragEnd($event)"></agm-marker>
-</agm-map>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
