@@ -172,9 +172,13 @@ $colors: (
     color: mat.get-color-from-palette($primary, 50);
   }
   .sidebar.close .nav-links li .sub-menu .link_name{
-    color: mat.get-color-from-palette($primary)!important;
-    background: mat.get-color-from-palette($primary, 100);
+    background: mat.get-color-from-palette($primary)!important;
+    color: mat.get-color-from-palette($primary, 50)!important;
   }
+  .sidebar.close .nav-links li .sub-menu li a.active {
+    color: mat.get-color-from-palette($primary)!important;
+    background: mat.get-color-from-palette($primary, 50)!important;
+}
 
 // common scss color
 body { 
