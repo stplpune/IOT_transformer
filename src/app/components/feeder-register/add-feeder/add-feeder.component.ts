@@ -13,7 +13,7 @@ import { CommonMethodsService } from 'src/app/core/services/common-methods.servi
 import { ApiService } from 'src/app/core/services/api.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { MatSelectModule } from '@angular/material/select';
-// import { MasterService } from 'src/app/core/services/master.service';
+import { MasterService } from 'src/app/core/services/master.service';
 
 @Component({
   selector: 'app-add-feeder',
@@ -27,7 +27,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatButtonModule,
     MatInputModule,
     ReactiveFormsModule,
-    MatSelectModule
+    MatSelectModule,
   ],
   providers: [CommonMethodsService, ApiService, ErrorsService],
   templateUrl: './add-feeder.component.html',
@@ -44,7 +44,7 @@ export class AddFeederComponent {
     private errorService: ErrorsService,
     public validation: ValidationService,
     private fb: FormBuilder,
-    // private masterService: MasterService,
+    private masterService: MasterService,
     public webStorageService: WebStorageService,
     private dialogRef: MatDialogRef<AddFeederComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -66,25 +66,13 @@ export class AddFeederComponent {
     })
   }
 
-  // getSubstation() {
-  //   this.masterService.GetSubStation().subscribe({
-  //     next: ((res: any) => {
-  //       this.substationArray = res.responseData;
-  //     }), error: (() => {
-  //       this.substationArray = [];
-  //     })
-  //   })
-  // }
-
   getSubstation() {
-    this.apiService.setHttp('GET', 'MSEB_iOT/api/CommonDropDown/GetSubStation', false, false, false, 'baseUrl');
-    this.apiService.getHttp().subscribe({
-      next: (res: any) => {
-        if (res.statusCode == '200') {
-          this.substationArray = res.responseData;
-        } else { this.substationArray = [] }
-      }, error: (err: any) => { this.errorService.handelError(err.status) },
-    });
+    this.substationArray = [];
+    this.masterService.GetSubStation().subscribe({
+      next: ((res: any) => {
+        this.substationArray = res.responseData;
+      }), error: (() => { this.substationArray = []})
+    })
   }
 
    onSubmit() {

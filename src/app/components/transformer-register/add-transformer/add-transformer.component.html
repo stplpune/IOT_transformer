@@ -46,8 +46,21 @@
             </div>
         </div>
 
-        <div class="row">
-
+        <div class="card border-0 my-google-map">
+            <mat-form-field appearance="outline" class="w-100">
+                <input matInput placeholder="Search..." (keypress)="validation.noFirstSpaceAllow($event)" #search>
+            </mat-form-field>
+            <div class="border border-muted">
+                <agm-map [latitude]="latitude || 18.5245649" [longitude]="longitude || 73.7228812" [zoom]="zoom" class="rounded agm-map-height-big"
+                    (mapReady)="onMapReady($event)" (mapClick)="addMarker($event);search.value=''">
+                    <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+                        (dragEnd)="markerDragEnd($event);search.value=''">
+                        <agm-info-window #infowindow>
+                            {{f['address'].value}}
+                        </agm-info-window>
+                    </agm-marker>
+                </agm-map>
+            </div>
         </div>
 
     </mat-dialog-content>

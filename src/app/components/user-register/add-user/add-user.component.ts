@@ -13,6 +13,7 @@ import { CommonMethodsService } from 'src/app/core/services/common-methods.servi
 import { ApiService } from 'src/app/core/services/api.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { MatSelectModule } from '@angular/material/select';
+import { MasterService } from 'src/app/core/services/master.service';
 @Component({
   selector: 'app-add-user',
   standalone: true,
@@ -41,6 +42,7 @@ export class AddUserComponent {
     private apiService: ApiService,
     public commonService: CommonMethodsService,
     private errorService: ErrorsService,
+    private masterService:MasterService,
     public validation: ValidationService,
     private fb: FormBuilder,
     public webStorageService: WebStorageService,
@@ -68,14 +70,12 @@ export class AddUserComponent {
   }
 
   getSubstation() {
-    this.apiService.setHttp('GET', 'MSEB_iOT/api/CommonDropDown/GetSubStation', false, false, false, 'baseUrl');
-    this.apiService.getHttp().subscribe({
-      next: (res: any) => {
-        if (res.statusCode == '200') {
-          this.substationArray = res.responseData;
-        } else { this.substationArray = [] }
-      }, error: (err: any) => { this.errorService.handelError(err.status) },
-    });
+    this.substationArray = [];
+    this.masterService.GetSubStation().subscribe({
+      next: ((res: any) => {
+        this.substationArray = res.responseData;
+      }), error: (() => { this.substationArray = []})
+    })
   }
 
   getUserType() {

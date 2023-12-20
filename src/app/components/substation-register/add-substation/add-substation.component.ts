@@ -85,9 +85,9 @@ export class AddSubstationComponent {
     if (this.substationForm.invalid) {
       return;
     } 
-    // else if(!this.markerPositions?.length){
-    //   this.commonService.snackBar("Please Select Address", 1);
-    // } 
+    else if(!this.latitude){
+      this.commonService.snackBar("Please Select Address", 1);
+    } 
     else {
       let formData = this.substationForm.getRawValue();
 

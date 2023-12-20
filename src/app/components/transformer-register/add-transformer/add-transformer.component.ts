@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, ElementRef, Inject, NgZone, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
@@ -13,6 +13,8 @@ import { CommonMethodsService } from 'src/app/core/services/common-methods.servi
 import { ErrorsService } from 'src/app/core/services/errors.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
+import { AgmCoreModule, MapsAPILoader } from '@agm/core';
+import { MasterService } from 'src/app/core/services/master.service';
 
 @Component({
   selector: 'app-add-transformer',
@@ -26,7 +28,8 @@ import { WebStorageService } from 'src/app/core/services/web-storage.service';
     MatButtonModule,
     MatInputModule,
     ReactiveFormsModule,
-    MatSelectModule
+    MatSelectModule,
+    AgmCoreModule
   ],
   providers: [CommonMethodsService, ApiService, ErrorsService],
   templateUrl: './add-transformer.component.html',
@@ -41,7 +44,10 @@ export class AddTransformerComponent {
 
   constructor(
     private apiService: ApiService,
+    private mapsAPILoader: MapsAPILoader,
+    private ngZone: NgZone,
     public commonService: CommonMethodsService,
+    private masterService:MasterService,
     private errorService: ErrorsService,
     public validation: ValidationService,
     private fb: FormBuilder,
@@ -57,8 +63,6 @@ export class AddTransformerComponent {
     this. getDevice();
     this.getSubstation();
     this.getFeeder();
-    console.log(this.data);
-    
     this.data ? this.editData() : '';
   }
   
@@ -67,7 +71,8 @@ export class AddTransformerComponent {
       transformerName: ['', [Validators.required]],
       deviceMasterId: ['', [Validators.required]],
       substationId: ['', [Validators.required]],
-      feederId: ['', [Validators.required]],      
+      feederId: ['', [Validators.required]],  
+      address:['']    
     })
   }
 
@@ -85,14 +90,12 @@ export class AddTransformerComponent {
   }
 
   getSubstation() {
-    this.apiService.setHttp('GET', 'MSEB_iOT/api/CommonDropDown/GetSubStation', false, false, false, 'baseUrl');
-    this.apiService.getHttp().subscribe({
-      next: (res: any) => {
-        if (res.statusCode == '200') {
-          this.substationArray = res.responseData;
-        } else { this.substationArray = [] }
-      }, error: (err: any) => {this.substationArray = []; this.errorService.handelError(err.status) },
-    });
+    this.substationArray = [];
+    this.masterService.GetSubStation().subscribe({
+      next: ((res: any) => {
+        this.substationArray = res.responseData;
+      }), error: (() => { this.substationArray = []})
+    })
   }
 
   getFeeder() {
@@ -108,7 +111,9 @@ export class AddTransformerComponent {
 
   onSubmit() {
     if (this.transformerForm.invalid) { return; }
-    else {
+    else if(!this.latitude){
+      this.commonService.snackBar("Please Select Address", 1);
+    } else {
       let formData = this.transformerForm.getRawValue();
       let obj:any = {
         "id": this.data ? this.data?.transformerId : 0,
@@ -116,8 +121,9 @@ export class AddTransformerComponent {
         "deviceMasterId": formData.deviceMasterId,
         "substationId": formData.substationId,
         "feederId": formData.feederId,
-        "lat": 18.3696,
-        "long": 19.3696,       
+        "address":formData.address,
+        "lat": this.latitude,
+        "long": this.longitude,   
       }
       this.data ? obj.modifiedBy = this.webStorageService.userId : obj.createdBy = this.webStorageService.userId
       
@@ -140,8 +146,68 @@ export class AddTransformerComponent {
   }
 
   editData(){
-    this.transformerForm.patchValue(this.data)
+    this.transformerForm.patchValue(this.data);
+    this.latitude = this.data.lat;
+    this.longitude = this.data.long;
   }
+
+    //...........................................  Map Code Start Here .....................................//
+
+    geoCoder:any;
+    map:any;
+    zoom = 6;
+    latitude:any;
+    longitude:any;
+    @ViewChild('search') public searchElementRef!: ElementRef;
+  
+    onMapReady(map?: any) {
+      map?.setOptions({ mapTypeControlOptions: { position: google.maps.ControlPosition.TOP_RIGHT },streetViewControl: false, 
+        zoomControl: true, fullscreenControl: true, disableDefaultUI: false, mapTypeControl: true});
+      this.map = map;
+      this.agmMapLoad();
+    }
+  
+  agmMapLoad(){
+    this.mapsAPILoader.load().then(() => {
+      this.geoCoder = new google.maps.Geocoder();
+      let options = {types: ['address'],componentRestrictions: {country: "IN" }};
+      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, options);
+      autocomplete.addListener("place_changed", () => {
+        this.ngZone.run(() => {
+          const place: google.maps.places.PlaceResult = autocomplete.getPlace();
+          if (place.geometry === undefined || place.geometry === null) {return}
+          this.latitude = place.geometry.location.lat();
+          this.longitude = place.geometry.location.lng();
+          this.getAddress(this.latitude, this.longitude);
+        });
+      });
+    });
+  }
+  
+  markerDragEnd($event: any) {
+    this.latitude = $event.coords.lat;
+    this.longitude = $event.coords.lng;
+    this.getAddress(this.latitude, this.longitude);
+    this.searchElementRef.nativeElement = '';
+  }
+  
+  addMarker(event: any) {
+    this.latitude = event.coords.lat;
+    this.longitude = event.coords.lng;
+    this.getAddress(this.latitude, this.longitude);
+  }
+  
+  getAddress(latitude: any, longitude: any) {
+    this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results: any, status: any) => {
+      if (status === 'OK') {
+        if (results[0]) {
+          this.zoom = 15;
+          this.f['address'].setValue(results[0].formatted_address);
+        } else {  window.alert('No results found')}
+      } else { window.alert('Geocoder failed due to: ' + status);}});
+  }
+  
+   //...........................................  Map Code End Here .....................................//
 
 
 }
