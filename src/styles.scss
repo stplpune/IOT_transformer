@@ -33,7 +33,10 @@ mat-card.plain-card {
   min-height: calc(100vh - 280px);
   overflow: auto;
 }
-
+.highlightRow:hover,
+.highlightRow{
+    background: #f5f9ff!important; 
+  }
 // dialog style 
 .mdc-dialog__title.modal-header::before{
   display: none;

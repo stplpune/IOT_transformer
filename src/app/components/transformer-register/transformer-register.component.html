@@ -71,7 +71,9 @@
           </ng-container>
   
           <tr class="mat-row p-2 w-100" *matNoDataRow col>
-            <td class="alert alert-danger text-center m-2 mt-2" colspan="12">No data found</td>
+            <td colspan="12">
+              <div class="alert alert-danger text-center m-2 mt-2 p-2">No data found</div>
+            </td>
           </tr>
           <tr mat-header-row *matHeaderRowDef="displayedColumns sticky: true"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

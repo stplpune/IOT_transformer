@@ -15,6 +15,7 @@ import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { MatSelectModule } from '@angular/material/select';
 import { ConfigService } from 'src/app/core/services/config.service';
 import { AgmCoreModule, MapsAPILoader } from '@agm/core';
+import { MasterService } from 'src/app/core/services/master.service';
 @Component({
   selector: 'app-add-substation',
   standalone: true,
@@ -38,15 +39,21 @@ import { AgmCoreModule, MapsAPILoader } from '@agm/core';
 export class AddSubstationComponent {
 
   substationForm: FormGroup | any;
-  granpanchayatArray:any
+  // granpanchayatArray:any
+  stateArray:any;
+  districtArray:any;
+  talukaArray:any;
+  villageArray:any;
 
   constructor(
     private apiService: ApiService,
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
+    private configSer:ConfigService,
     public commonService: CommonMethodsService,
     private errorService: ErrorsService,
     public validation: ValidationService,
+    private masterService:MasterService,
     private fb: FormBuilder,
     public webStorageService: WebStorageService,
     private dialogRef: MatDialogRef<AddSubstationComponent>,
@@ -56,7 +63,7 @@ export class AddSubstationComponent {
   ngOnInit(): void {
     this.webStorageService.assignLocalStorageData();
     this.substation_Form();
-    this.getGranpanchayat();
+    this.get_State();
     this.data ? this.editData() : '';
   }
 
@@ -65,20 +72,62 @@ export class AddSubstationComponent {
     this.substationForm = this.fb.group({
       id: [0],
       substationName: ['', [Validators.required, Validators.pattern('^[^[ ]+|[ ][gm]+$')]],
-      granpanchayatId: ['', [Validators.required]],
-      address:['']
+      // granpanchayatId: ['', [Validators.required]],
+      address:[''],
+
+      stateId:[this.configSer.stateId, [Validators.required]],
+      districtId:['', [Validators.required]],
+      talukaId:['', [Validators.required]],
+      villageId:['', [Validators.required]],
     })
   }
 
-  getGranpanchayat() {
-    this.apiService.setHttp('GET', 'MSEB_iOT/api/CommonDropDown/GetVillage', false, false, false, 'baseUrl');
-    this.apiService.getHttp().subscribe({
-      next: (res: any) => {
-        if (res.statusCode == '200') {
-          this.granpanchayatArray = res.responseData;
-        } else { this.granpanchayatArray = [] }
-      }, error: (err: any) => { this.errorService.handelError(err.status) },
-    });
+  get_State() {
+    this.stateArray = [];
+    this.masterService.getState().subscribe({
+      next: ((res: any) => {
+        this.stateArray = res.responseData;
+        this.get_District();
+      }), error: (() => { this.stateArray = []})
+    })
+  }
+
+  get_District() {
+    this.districtArray = [];
+    this.masterService.getDistrict(this.f['stateId'].value).subscribe({
+      next: ((res: any) => {
+        this.districtArray = res.responseData;
+        // this.get_Taluka();
+      }), error: (() => { this.districtArray = []})
+    })
+  }
+
+  get_Taluka() {
+    this.talukaArray = [];
+    this.masterService.getTaluka(this.f['districtId'].value).subscribe({
+      next: ((res: any) => {
+        this.talukaArray = res.responseData;
+        // this.get_Village();
+      }), error: (() => { this.talukaArray = []})
+    })
+  }
+
+  get_Village() {
+    this.villageArray = [];
+    this.masterService.getVillage(this.f['talukaId'].value).subscribe({
+      next: ((res: any) => {
+        this.villageArray = res.responseData;
+      }), error: (() => { this.villageArray = []})
+    })
+  }
+
+  clearFilter(flag:any){
+    if(flag == 'district'){
+      this.f['talukaId'].setValue('');
+      this.f['villageId'].setValue('');
+    } else if(flag == 'taluka'){
+      this.f['villageId'].setValue('');
+    } 
   }
 
   onSubmit() {
@@ -94,7 +143,7 @@ export class AddSubstationComponent {
       let obj: any = {
         "id": formData.id,
         "substationName": formData.substationName,
-        "granpanchayatId": formData.granpanchayatId,
+        "granpanchayatId": formData.villageId,
         "address":formData.address,
         "lat": this.latitude,
         "long": this.longitude,
@@ -125,12 +174,18 @@ export class AddSubstationComponent {
     this.substationForm.patchValue({
       id: this.data.substationId,
       substationName: this.data.substationName,
-      granpanchayatId: this.data.granpanchayatId,
-      address:this.data.address
+      address: this.data.address,
+      stateId: this.data.stateId,
+      districtId: this.data.districtId,
+      talukaId: this.data.talukaId,
+      villageId: this.data.granpanchayatId,
     })
     // this.getAddress(this.data.lat,this.data.long);
     this.latitude = this.data.lat;
     this.longitude = this.data.long;
+
+    this.get_Taluka();
+    this.get_Village();
   }
 
   //...........................................  Map Code Start Here .....................................//

@@ -50,6 +50,7 @@ export class SubstationRegisterComponent {
   pageNumber: number = 1;
   displayedColumns = ['srNo', 'substationName', 'granpanchayat','address', 'action'];
   textSearch = new FormControl('');
+  highLightRow:any;
 
   constructor(
     private apiService: ApiService,
@@ -91,6 +92,7 @@ export class SubstationRegisterComponent {
   }
 
   addSubstationModal(data?: any) {
+    // data ? this.highLightRow = data.substationId : '';
     const dialog = this.dialog.open(AddSubstationComponent, {
       width: '900px',
       data: data,

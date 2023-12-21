@@ -18,15 +18,47 @@
             </div>
 
             <div class="col-sm-6">
-                <p class="form-label mb-1">Granpanchayat</p>
+                <p class="form-label mb-1">State</p>
                 <mat-form-field appearance="outline" class="w-100">
-                    <mat-select formControlName="granpanchayatId" placeholder="Select Granpanchayat">
-                        <mat-option *ngFor="let gramP of granpanchayatArray"
-                            [value]="gramP.id">{{gramP.text}}</mat-option>
+                    <mat-select formControlName="stateId" placeholder="Select State"
+                        [ngClass]="f['stateId']?.getRawValue() ? f['stateId']?.disable() : f['stateId']?.disable()">
+                        <mat-option *ngFor="let state of stateArray" [value]="state.id">{{state.text}}</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-sm-4">
+                <p class="form-label mb-1">District</p>
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-select formControlName="districtId" placeholder="Select District" (selectionChange)="clearFilter('district');get_Taluka()"
+                    [ngClass]="!f['stateId']?.getRawValue() ? f['districtId']?.disable() : f['districtId']?.enable()">
+                        <mat-option *ngFor="let district of districtArray" [value]="district.id">{{district.text}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="col-sm-4">
+                <p class="form-label mb-1">Taluka</p>
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-select formControlName="talukaId" placeholder="Select Taluka" (selectionChange)="clearFilter('taluka');get_Village()"
+                    [ngClass]="!f['districtId']?.getRawValue() ? f['talukaId']?.disable() : f['talukaId']?.enable()">
+                        <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{taluka.text}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            
+            <div class="col-sm-4">
+                <p class="form-label mb-1">Village</p>
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-select formControlName="villageId" placeholder="Select Village"
+                    [ngClass]="!f['talukaId']?.getRawValue() ? f['villageId']?.disable() : f['villageId']?.enable()">
+                        <mat-option *ngFor="let village of villageArray" [value]="village.id">{{village.text}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            </div>
 
         <div class="card border-0 my-google-map">
             <mat-form-field appearance="outline" class="w-100">
